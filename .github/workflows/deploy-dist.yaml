@@ -31,3 +31,5 @@ jobs:
       # 5. Run tests
       - name: Run tests
         run: npm test
+  deploy: 
+    runs-on: ubuntu-latest
