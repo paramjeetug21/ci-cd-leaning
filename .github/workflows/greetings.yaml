@@ -2,7 +2,7 @@ name : Greetings Workflow
 on : [push , pull_request ]
 jobs : 
     greet :
-        runs-on : ubuntu-18.04-slim
+        runs-on : ubuntu-latest
         steps :
             - name : greet user
               run : echo "hello world"

@@ -2,7 +2,10 @@ name: Deploy Dist
 on : [push , workflow_dispatch]
 jobs:
     deploy-test:
-        runs-on: ubuntu-18.04-slim
+        runs-on: ubuntu-latest
         steps:
             - name: Deploy to test environment
-              run: echo "Deploying to test environment."
+              run: |
+                echo "repo cloning"
+                echo "${{toJson(github)}}"
+                echo git clone https://github.com/${{github.repository}}.git
