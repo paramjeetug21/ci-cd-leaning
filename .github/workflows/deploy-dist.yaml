@@ -1,0 +1,8 @@
+name: Deploy Dist
+on : [push , workflow_dispatch]
+jobs:
+    deploy-test:
+        runs-on: ubuntu-18.04-slim
+        steps:
+            - name: Deploy to test environment
+              run: echo "Deploying to test environment."
