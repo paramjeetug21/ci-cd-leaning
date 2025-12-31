@@ -1,21 +1,33 @@
 name: Deploy Dist
-on : [push , workflow_dispatch]
+
+on:
+  push:
+  workflow_dispatch:
+
 jobs:
-    deploy-test:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Deploy to test environment
-              run: |
-                echo "repo cloning"
-                echo "${{toJson(github)}}"
-                echo git clone https://github.com/${{github.repository}}.git
-            - name: Install Node
-              uses: actions/setup-node@v3
-              with:
-                node-version: '18'
-            - name: print node version
-              run: node -v
-            - name: install npm dependencies
-              run : npm install
-            - name: Run tests
-              run : npm run test
+  deploy-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout code (MANDATORY)
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Node
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      # 3. Verify Node
+      - name: Print Node version
+        run: node -v
+
+      # 4. Install deps (CI-safe)
+      - name: Install dependencies
+        run: npm ci
+
+      # 5. Run tests
+      - name: Run tests
+        run: npm test
