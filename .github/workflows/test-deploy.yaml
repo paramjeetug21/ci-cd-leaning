@@ -1,0 +1,20 @@
+name : test and deploy
+
+on: 
+  push :
+  workflow_dispatch :
+jobs :
+  test-and-deploy :
+    runs-on : ubuntu-latest
+    steps :
+      - name : ubuntu started
+        run : echo "ubuntu latest started"
+      - name : test end
+        run : echo "test ended"
+  deploy :
+    runs-on : ubuntu-latest
+    steps :
+      - name : deploy started
+        run : echo "deploy started"
+      - name : deploy end
+        run : echo "deploy ended"
