@@ -12,6 +12,7 @@ jobs :
       - name : test end
         run : echo "test ended"
   deploy :
+    needs : test-and-deploy
     runs-on : ubuntu-latest
     steps :
       - name : deploy started
