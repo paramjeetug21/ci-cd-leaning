@@ -2,6 +2,12 @@ name : test and deploy
 
 on: 
   push :
+    branches :
+      - main
+    paths-ignore :
+      - '.github/workflows/**'
+      - README.md
+      - .env
   workflow_dispatch :
 jobs :
   test-and-deploy :
@@ -9,6 +15,19 @@ jobs :
     steps :
       - name : ubuntu started
         run : echo "ubuntu latest started"
+      - name : use node
+        uses : actions/setup-node@v4
+        with : 
+          node-version : 18
+      - name : instal dependencies
+        run : npm ci 
+      - name : instal cache
+        uses : actions/cache@v3
+        with :
+          path : ~/.npm
+          key : ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys : |
+            ${{ runner.os }}-node-
       - name : test end
         run : echo "test ended"
   deploy :
